@@ -17,6 +17,13 @@ import { renderError } from "../src/common/render.js";
 import { fetchStats } from "../src/fetchers/stats.js";
 import { isLocaleAvailable } from "../src/translations.js";
 
+/**
+ * Vercel Serverless Function to render GitHub Readme Stats card.
+ *
+ * @param {any} req Express-like request object.
+ * @param {any} res Express-like response object.
+ * @returns {Promise<any>} Response output.
+ */
 // @ts-ignore
 export default async (req, res) => {
   const {
@@ -28,6 +35,7 @@ export default async (req, res) => {
     hide_rank,
     show_icons,
     include_all_commits,
+    include_all_time_commits,
     commits_year,
     line_height,
     title_color,
@@ -94,6 +102,7 @@ export default async (req, res) => {
       showStats.includes("discussions_started"),
       showStats.includes("discussions_answered"),
       parseInt(commits_year, 10),
+      parseBoolean(include_all_time_commits),
     );
     const cacheSeconds = resolveCacheSeconds({
       requested: parseInt(cache_seconds, 10),
@@ -113,6 +122,7 @@ export default async (req, res) => {
         card_width: parseInt(card_width, 10),
         hide_rank: parseBoolean(hide_rank),
         include_all_commits: parseBoolean(include_all_commits),
+        include_all_time_commits: parseBoolean(include_all_time_commits),
         commits_year: parseInt(commits_year, 10),
         line_height,
         title_color,

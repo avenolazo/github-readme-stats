@@ -231,12 +231,18 @@ const getStyles = ({
  * Return the label for commits according to the selected options
  *
  * @param {boolean} include_all_commits Option to include all years
+ * @param {boolean} include_all_time_commits Option to include all-time commits from multiple years using GraphQL
  * @param {number|undefined} commits_year Option to include only selected year
  * @param {I18n} i18n The I18n instance.
  * @returns {string} The label corresponding to the options.
  */
-const getTotalCommitsYearLabel = (include_all_commits, commits_year, i18n) =>
-  include_all_commits
+const getTotalCommitsYearLabel = (
+  include_all_commits,
+  include_all_time_commits,
+  commits_year,
+  i18n,
+) =>
+  include_all_commits || include_all_time_commits
     ? ""
     : commits_year
       ? ` (${commits_year})`
@@ -277,6 +283,7 @@ const renderStatsCard = (stats, options = {}) => {
     card_width,
     hide_rank = false,
     include_all_commits = false,
+    include_all_time_commits = false,
     commits_year,
     line_height = 25,
     title_color,
@@ -333,6 +340,7 @@ const renderStatsCard = (stats, options = {}) => {
     icon: icons.commits,
     label: `${i18n.t("statcard.commits")}${getTotalCommitsYearLabel(
       include_all_commits,
+      include_all_time_commits,
       commits_year,
       i18n,
     )}`,
@@ -573,6 +581,7 @@ const renderStatsCard = (stats, options = {}) => {
       if (key === "commits") {
         return `${i18n.t("statcard.commits")} ${getTotalCommitsYearLabel(
           include_all_commits,
+          include_all_time_commits,
           commits_year,
           i18n,
         )} : ${stats.value}`;

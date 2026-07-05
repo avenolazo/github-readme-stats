@@ -39,12 +39,81 @@ const GRAPHQL_REPOS_QUERY = `
 `;
 
 const GRAPHQL_STATS_QUERY = `
-  query userInfo($login: String!, $after: String, $includeMergedPullRequests: Boolean!, $includeDiscussions: Boolean!, $includeDiscussionsAnswers: Boolean!, $startTime: DateTime = null) {
+  query userInfo($login: String!, $after: String, $includeMergedPullRequests: Boolean!, $includeDiscussions: Boolean!, $includeDiscussionsAnswers: Boolean!, $includeAllTimeCommits: Boolean!, $startTime: DateTime = null) {
     user(login: $login) {
       name
       login
       commits: contributionsCollection (from: $startTime) {
         totalCommitContributions,
+      }
+      contributionsCollection2030: contributionsCollection(from: "2030-01-01T00:00:00Z", to: "2030-12-31T23:59:59Z") @include(if: $includeAllTimeCommits) {
+        totalCommitContributions
+      }
+      contributionsCollection2029: contributionsCollection(from: "2029-01-01T00:00:00Z", to: "2029-12-31T23:59:59Z") @include(if: $includeAllTimeCommits) {
+        totalCommitContributions
+      }
+      contributionsCollection2028: contributionsCollection(from: "2028-01-01T00:00:00Z", to: "2028-12-31T23:59:59Z") @include(if: $includeAllTimeCommits) {
+        totalCommitContributions
+      }
+      contributionsCollection2027: contributionsCollection(from: "2027-01-01T00:00:00Z", to: "2027-12-31T23:59:59Z") @include(if: $includeAllTimeCommits) {
+        totalCommitContributions
+      }
+      contributionsCollection2026: contributionsCollection(from: "2026-01-01T00:00:00Z", to: "2026-12-31T23:59:59Z") @include(if: $includeAllTimeCommits) {
+        totalCommitContributions
+      }
+      contributionsCollection2025: contributionsCollection(from: "2025-01-01T00:00:00Z", to: "2025-12-31T23:59:59Z") @include(if: $includeAllTimeCommits) {
+        totalCommitContributions
+      }
+      contributionsCollection2024: contributionsCollection(from: "2024-01-01T00:00:00Z", to: "2024-12-31T23:59:59Z") @include(if: $includeAllTimeCommits) {
+        totalCommitContributions
+      }
+      contributionsCollection2023: contributionsCollection(from: "2023-01-01T00:00:00Z", to: "2023-12-31T23:59:59Z") @include(if: $includeAllTimeCommits) {
+        totalCommitContributions
+      }
+      contributionsCollection2022: contributionsCollection(from: "2022-01-01T00:00:00Z", to: "2022-12-31T23:59:59Z") @include(if: $includeAllTimeCommits) {
+        totalCommitContributions
+      }
+      contributionsCollection2021: contributionsCollection(from: "2021-01-01T00:00:00Z", to: "2021-12-31T23:59:59Z") @include(if: $includeAllTimeCommits) {
+        totalCommitContributions
+      }
+      contributionsCollection2020: contributionsCollection(from: "2020-01-01T00:00:00Z", to: "2020-12-31T23:59:59Z") @include(if: $includeAllTimeCommits) {
+        totalCommitContributions
+      }
+      contributionsCollection2019: contributionsCollection(from: "2019-01-01T00:00:00Z", to: "2019-12-31T23:59:59Z") @include(if: $includeAllTimeCommits) {
+        totalCommitContributions
+      }
+      contributionsCollection2018: contributionsCollection(from: "2018-01-01T00:00:00Z", to: "2018-12-31T23:59:59Z") @include(if: $includeAllTimeCommits) {
+        totalCommitContributions
+      }
+      contributionsCollection2017: contributionsCollection(from: "2017-01-01T00:00:00Z", to: "2017-12-31T23:59:59Z") @include(if: $includeAllTimeCommits) {
+        totalCommitContributions
+      }
+      contributionsCollection2016: contributionsCollection(from: "2016-01-01T00:00:00Z", to: "2016-12-31T23:59:59Z") @include(if: $includeAllTimeCommits) {
+        totalCommitContributions
+      }
+      contributionsCollection2015: contributionsCollection(from: "2015-01-01T00:00:00Z", to: "2015-12-31T23:59:59Z") @include(if: $includeAllTimeCommits) {
+        totalCommitContributions
+      }
+      contributionsCollection2014: contributionsCollection(from: "2014-01-01T00:00:00Z", to: "2014-12-31T23:59:59Z") @include(if: $includeAllTimeCommits) {
+        totalCommitContributions
+      }
+      contributionsCollection2013: contributionsCollection(from: "2013-01-01T00:00:00Z", to: "2013-12-31T23:59:59Z") @include(if: $includeAllTimeCommits) {
+        totalCommitContributions
+      }
+      contributionsCollection2012: contributionsCollection(from: "2012-01-01T00:00:00Z", to: "2012-12-31T23:59:59Z") @include(if: $includeAllTimeCommits) {
+        totalCommitContributions
+      }
+      contributionsCollection2011: contributionsCollection(from: "2011-01-01T00:00:00Z", to: "2011-12-31T23:59:59Z") @include(if: $includeAllTimeCommits) {
+        totalCommitContributions
+      }
+      contributionsCollection2010: contributionsCollection(from: "2010-01-01T00:00:00Z", to: "2010-12-31T23:59:59Z") @include(if: $includeAllTimeCommits) {
+        totalCommitContributions
+      }
+      contributionsCollection2009: contributionsCollection(from: "2009-01-01T00:00:00Z", to: "2009-12-31T23:59:59Z") @include(if: $includeAllTimeCommits) {
+        totalCommitContributions
+      }
+      contributionsCollection2008: contributionsCollection(from: "2008-01-01T00:00:00Z", to: "2008-12-31T23:59:59Z") @include(if: $includeAllTimeCommits) {
+        totalCommitContributions
       }
       reviews: contributionsCollection {
         totalPullRequestReviewContributions
@@ -107,6 +176,7 @@ const fetcher = (variables, token) => {
  * @param {boolean} variables.includeDiscussions Include discussions.
  * @param {boolean} variables.includeDiscussionsAnswers Include discussions answers.
  * @param {string|undefined} variables.startTime Time to start the count of total commits.
+ * @param {boolean} variables.includeAllTimeCommits Include all-time commits.
  * @returns {Promise<import('axios').AxiosResponse>} Axios response.
  *
  * @description This function supports multi-page fetching if the 'FETCH_MULTI_PAGE_STARS' environment variable is set to true.
@@ -117,6 +187,7 @@ const statsFetcher = async ({
   includeDiscussions,
   includeDiscussionsAnswers,
   startTime,
+  includeAllTimeCommits,
 }) => {
   let stats;
   let hasNextPage = true;
@@ -130,6 +201,7 @@ const statsFetcher = async ({
       includeDiscussions,
       includeDiscussionsAnswers,
       startTime,
+      includeAllTimeCommits,
     };
     let res = await retryer(fetcher, variables);
     if (res.data.errors) {
@@ -221,7 +293,8 @@ const totalCommitsFetcher = async (username) => {
  * @param {boolean} include_merged_pull_requests Include merged pull requests.
  * @param {boolean} include_discussions Include discussions.
  * @param {boolean} include_discussions_answers Include discussions answers.
- * @param {number|undefined} commits_year Year to count total commits
+ * @param {number|undefined} commits_year Year to count total commits.
+ * @param {boolean} include_all_time_commits Include all-time commits from multiple years using GraphQL.
  * @returns {Promise<import("./types").StatsData>} Stats data.
  */
 const fetchStats = async (
@@ -232,6 +305,7 @@ const fetchStats = async (
   include_discussions = false,
   include_discussions_answers = false,
   commits_year,
+  include_all_time_commits = false,
 ) => {
   if (!username) {
     throw new MissingParamError(["username"]);
@@ -258,6 +332,7 @@ const fetchStats = async (
     includeDiscussions: include_discussions,
     includeDiscussionsAnswers: include_discussions_answers,
     startTime: commits_year ? `${commits_year}-01-01T00:00:00Z` : undefined,
+    includeAllTimeCommits: include_all_time_commits,
   });
 
   // Catch GraphQL errors.
@@ -288,6 +363,79 @@ const fetchStats = async (
   // if include_all_commits, fetch all commits using the REST API.
   if (include_all_commits) {
     stats.totalCommits = await totalCommitsFetcher(username);
+  } else if (include_all_time_commits) {
+    // Sum up commits from ALL years since GitHub started (2008-2030)
+    const year2030 =
+      user.contributionsCollection2030?.totalCommitContributions || 0;
+    const year2029 =
+      user.contributionsCollection2029?.totalCommitContributions || 0;
+    const year2028 =
+      user.contributionsCollection2028?.totalCommitContributions || 0;
+    const year2027 =
+      user.contributionsCollection2027?.totalCommitContributions || 0;
+    const year2026 =
+      user.contributionsCollection2026?.totalCommitContributions || 0;
+    const year2025 =
+      user.contributionsCollection2025?.totalCommitContributions || 0;
+    const year2024 =
+      user.contributionsCollection2024?.totalCommitContributions || 0;
+    const year2023 =
+      user.contributionsCollection2023?.totalCommitContributions || 0;
+    const year2022 =
+      user.contributionsCollection2022?.totalCommitContributions || 0;
+    const year2021 =
+      user.contributionsCollection2021?.totalCommitContributions || 0;
+    const year2020 =
+      user.contributionsCollection2020?.totalCommitContributions || 0;
+    const year2019 =
+      user.contributionsCollection2019?.totalCommitContributions || 0;
+    const year2018 =
+      user.contributionsCollection2018?.totalCommitContributions || 0;
+    const year2017 =
+      user.contributionsCollection2017?.totalCommitContributions || 0;
+    const year2016 =
+      user.contributionsCollection2016?.totalCommitContributions || 0;
+    const year2015 =
+      user.contributionsCollection2015?.totalCommitContributions || 0;
+    const year2014 =
+      user.contributionsCollection2014?.totalCommitContributions || 0;
+    const year2013 =
+      user.contributionsCollection2013?.totalCommitContributions || 0;
+    const year2012 =
+      user.contributionsCollection2012?.totalCommitContributions || 0;
+    const year2011 =
+      user.contributionsCollection2011?.totalCommitContributions || 0;
+    const year2010 =
+      user.contributionsCollection2010?.totalCommitContributions || 0;
+    const year2009 =
+      user.contributionsCollection2009?.totalCommitContributions || 0;
+    const year2008 =
+      user.contributionsCollection2008?.totalCommitContributions || 0;
+
+    stats.totalCommits =
+      year2030 +
+      year2029 +
+      year2028 +
+      year2027 +
+      year2026 +
+      year2025 +
+      year2024 +
+      year2023 +
+      year2022 +
+      year2021 +
+      year2020 +
+      year2019 +
+      year2018 +
+      year2017 +
+      year2016 +
+      year2015 +
+      year2014 +
+      year2013 +
+      year2012 +
+      year2011 +
+      year2010 +
+      year2009 +
+      year2008;
   } else {
     stats.totalCommits = user.commits.totalCommitContributions;
   }
